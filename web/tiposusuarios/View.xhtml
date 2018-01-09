@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TiposusuariosViewDlg" widgetVar="TiposusuariosViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTiposusuariosTitle}">
+            <h:form id="TiposusuariosViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tiposusuariosController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTiposusuariosLabel_codigotipousuario}"/>
+                        <h:outputText value="#{tiposusuariosController.selected.codigotipousuario}" title="#{bundle.ViewTiposusuariosTitle_codigotipousuario}"/>
+                        <h:outputText value="#{bundle.ViewTiposusuariosLabel_tipo}"/>
+                        <h:outputText value="#{tiposusuariosController.selected.tipo}" title="#{bundle.ViewTiposusuariosTitle_tipo}"/>
+                        <h:outputText value="#{bundle.ViewTiposusuariosLabel_descripcion}"/>
+                        <h:outputText value="#{tiposusuariosController.selected.descripcion}" title="#{bundle.ViewTiposusuariosTitle_descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TiposusuariosViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

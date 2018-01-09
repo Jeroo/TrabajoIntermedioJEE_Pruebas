@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StockCreateDlg" widgetVar="StockCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateStockTitle}">
+            <h:form id="StockCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{stockController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateStockLabel_codigostock}" for="codigostock" />
+                        <p:inputText id="codigostock" value="#{stockController.selected.codigostock}" title="#{bundle.CreateStockTitle_codigostock}" required="true" requiredMessage="#{bundle.CreateStockRequiredMessage_codigostock}"/>
+                        <p:outputLabel value="#{bundle.CreateStockLabel_cantidad}" for="cantidad" />
+                        <p:inputText id="cantidad" value="#{stockController.selected.cantidad}" title="#{bundle.CreateStockTitle_cantidad}" required="true" requiredMessage="#{bundle.CreateStockRequiredMessage_cantidad}"/>
+                        <p:outputLabel value="#{bundle.CreateStockLabel_fechareposicion}" for="fechareposicion" />
+                        <p:calendar id="fechareposicion" pattern="MM/dd/yyyy" value="#{stockController.selected.fechareposicion}" title="#{bundle.EditStockTitle_fechareposicion}" required="true" requiredMessage="#{bundle.EditStockRequiredMessage_fechareposicion}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateStockLabel_usuariorepuso}" for="usuariorepuso" />
+                        <p:inputText id="usuariorepuso" value="#{stockController.selected.usuariorepuso}" title="#{bundle.CreateStockTitle_usuariorepuso}" required="true" requiredMessage="#{bundle.CreateStockRequiredMessage_usuariorepuso}"/>
+                        <p:outputLabel value="#{bundle.CreateStockLabel_codigoproducto}" for="codigoproducto" />
+                        <p:selectOneMenu id="codigoproducto" value="#{stockController.selected.codigoproducto}" required="true" requiredMessage="#{bundle.EditStockRequiredMessage_codigoproducto}">
+                            <f:selectItems value="#{productostiendaController.itemsAvailableSelectOne}"
+                                           var="codigoproductoItem"
+                                           itemValue="#{codigoproductoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{stockController.create}" value="#{bundle.Save}" update="display,:StockListForm:datalist,:growl" oncomplete="handleSubmit(args,'StockCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="StockCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

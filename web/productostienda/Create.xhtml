@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProductostiendaCreateDlg" widgetVar="ProductostiendaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProductostiendaTitle}">
+            <h:form id="ProductostiendaCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{productostiendaController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateProductostiendaLabel_codigoproducto}" for="codigoproducto" />
+                        <p:inputText id="codigoproducto" value="#{productostiendaController.selected.codigoproducto}" title="#{bundle.CreateProductostiendaTitle_codigoproducto}" required="true" requiredMessage="#{bundle.CreateProductostiendaRequiredMessage_codigoproducto}"/>
+                        <p:outputLabel value="#{bundle.CreateProductostiendaLabel_precio}" for="precio" />
+                        <p:inputText id="precio" value="#{productostiendaController.selected.precio}" title="#{bundle.CreateProductostiendaTitle_precio}" required="true" requiredMessage="#{bundle.CreateProductostiendaRequiredMessage_precio}"/>
+                        <p:outputLabel value="#{bundle.CreateProductostiendaLabel_productospool}" for="productospool" />
+                        <p:selectOneMenu id="productospool" value="#{productostiendaController.selected.productospool}" required="true" requiredMessage="#{bundle.EditProductostiendaRequiredMessage_productospool}">
+                            <f:selectItems value="#{productospoolController.itemsAvailableSelectOne}"
+                                           var="productospoolItem"
+                                           itemValue="#{productospoolItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{productostiendaController.create}" value="#{bundle.Save}" update="display,:ProductostiendaListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProductostiendaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ProductostiendaCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
